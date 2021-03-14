@@ -21,5 +21,11 @@ package labs.pm.data;
  * @author HP
  */
 public interface TestInterface {
-    
+    void a();
+    private void b(){}
+    private static void c(){}
+    public static void d(){}
+    default void e(){}
+    public default void f(){}
+    default void g(){}
 }

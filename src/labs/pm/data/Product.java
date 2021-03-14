@@ -24,7 +24,7 @@ import java.util.Objects;
  *
  * @author Code_Slinger
  */
-public abstract class Product {
+public abstract class Product implements Rateable<Product> {
 
     private int id;
     private String name;
@@ -63,7 +63,7 @@ public abstract class Product {
         return rating;
     }
     
-    public abstract Product addRating(Rating newRating);
+//    public abstract Product addRating(Rating newRating);
     
     @Override
     public String toString() {
@@ -88,5 +88,5 @@ public abstract class Product {
         }
         return false;
     }
- 
+
 }

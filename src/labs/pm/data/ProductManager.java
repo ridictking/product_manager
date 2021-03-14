@@ -24,10 +24,22 @@ import java.time.LocalDate;
  * @author HP
  */
 public class ProductManager {
+    private Product product;
+    private Review review;
+    
+    
     public Product createProduct(int id, String name, BigDecimal price, Rating rating, LocalDate bestBefore){
-        return new Food(bestBefore,id,name,price, rating);
+        product = new Food(bestBefore,id,name,price, rating);
+        return product;
     }
      public Product createProduct(int id, String name, BigDecimal price, Rating rating){
-        return new Drink(id,name,price, rating);
+         product = new Drink(id,name,price, rating);
+        return product;
     }
+     
+     public Product reviewProduct(Rateable<Product> product, String comment, Rating rating){
+         review = new Review(rating, comment);
+         this.product = product.applyRating(rating);
+         return this.product;
+     }
 }

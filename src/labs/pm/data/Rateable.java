@@ -26,8 +26,12 @@ public interface Rateable<T> {
     
     public static final Rating DEFAULT_RATING = Rating.NOT_RATED;
     
-    T applyrating(Rating rating);
+    T applyRating(Rating rating);
     
+    public default T applyRating(int stars){
+         return applyRating(convert(stars));
+    }
+           
     default Rating getRating(){
         return DEFAULT_RATING;
     }

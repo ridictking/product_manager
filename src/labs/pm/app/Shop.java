@@ -45,8 +45,10 @@ public class Shop {
         System.out.println(p2);
         System.out.println(p3);
         System.out.println(p4);
-        p3 = p3.addRating(Rating.FIVE_STAR);
+        p3 = p3.applyRating(Rating.FIVE_STAR);
         System.out.println(p3);
+        p4 = pm.reviewProduct(p4, "This is not normal", Rating.NOT_RATED);
+        System.out.println(p4);
     }
 
 }
