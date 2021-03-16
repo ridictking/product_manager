@@ -23,20 +23,20 @@ package labs.pm.data;
  */
 @FunctionalInterface
 public interface Rateable<T> {
-    
+
     public static final Rating DEFAULT_RATING = Rating.NOT_RATED;
-    
+
     T applyRating(Rating rating);
-    
-    public default T applyRating(int stars){
-         return applyRating(convert(stars));
+
+    public default T applyRating(int stars) {
+        return applyRating(convert(stars));
     }
-           
-    default Rating getRating(){
+
+    default Rating getRating() {
         return DEFAULT_RATING;
     }
-    
-    static Rating convert(int stars){
-        return (stars >=0 && stars<=5)? Rating.values()[stars] : Rating.NOT_RATED;
+
+    static Rating convert(int stars) {
+        return (stars >= 0 && stars <= 5) ? Rating.values()[stars] : Rating.NOT_RATED;
     }
 }
