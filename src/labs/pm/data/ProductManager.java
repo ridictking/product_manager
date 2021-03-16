@@ -22,6 +22,7 @@ import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -37,7 +38,7 @@ public class ProductManager {
     private NumberFormat moneyFormat;
 
     private Product product;
-    private Review review;
+    private Review[] reviews = new Review[5];
 
     public ProductManager(Locale locale) {
         this.locale = locale;
@@ -46,7 +47,6 @@ public class ProductManager {
         moneyFormat = NumberFormat.getCurrencyInstance(locale);
     }
 
-    
     public Product createProduct(int id, String name, BigDecimal price, Rating rating, LocalDate bestBefore) {
         product = new Food(bestBefore, id, name, price, rating);
         return product;
@@ -57,13 +57,25 @@ public class ProductManager {
         return product;
     }
 
-    public Product reviewProduct(Rateable<Product> product, String comment, Rating rating) {
-        review = new Review(rating, comment);
-        this.product = product.applyRating(rating);
-        return this.product;
+    public Product reviewProduct(Product product, String comment, Rating rating) {
+        if (reviews[reviews.length - 1] != null) {
+            reviews = Arrays.copyOf(reviews, reviews.length + 5);
+        }
+        int sum = 0, i = 0;
+        boolean reviewed = false;
+        while (i < reviews.length && !reviewed) {
+            if (reviews[i] == null) {
+                reviews[i] = new Review(rating, comment);
+                reviewed = true;
+            }
+            sum += reviews[i].getRating().ordinal();
+            i++;
+        }
+        int averageRating = sum / i;
+        return this.product = product.applyRating(averageRating);
     }
-    
-    public void printProductReport(){
+
+    public void printProductReport() {
         StringBuilder txt = new StringBuilder();
         txt.append(MessageFormat.format(resources.getString("product"),
                 product.getName(),
@@ -71,13 +83,17 @@ public class ProductManager {
                 product.getRating().getStar(),
                 dateFormat.format(product.getBestBefore())));
         txt.append('\n');
-        if(review != null){
-            txt.append(MessageFormat.format(resources.getString("review"), review.getRating().getStar(),review.getComment()));
-        }else{
-            txt.append(resources.getString("no.review"));
+        for (Review review : reviews) {
+            if (review == null) {
+                break;
+            }
+            txt.append(MessageFormat.format(resources.getString("review"), review.getRating().getStar(), review.getComment()));
+            txt.append('\n');
         }
-        txt.append('\n');
-        
+        if (reviews[0] == null) {
+            txt.append(resources.getString("no.review"));
+            txt.append('\n');
+        }
         System.out.println(txt);
     }
 }

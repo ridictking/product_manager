@@ -36,20 +36,16 @@ public class Shop {
         // TODO code application logic here
         Locale locale = new Locale("en_NG");
         ProductManager pm = new ProductManager(Locale.UK);
-        Product p1 = pm.createProduct(101,"Tea",BigDecimal.valueOf(1.97), Rating.ONE_STAR,LocalDate.now().plusDays(2));
+        Product p1 = pm.createProduct(101,"Tea",BigDecimal.valueOf(1.97), Rating.NOT_RATED,LocalDate.now().plusDays(2));
         pm.printProductReport();
-//        Product p2 = pm.createProduct(102,"Coffee",BigDecimal.valueOf(1.85), Rating.FOUR_STAR);
-//        Product p3 = pm.createProduct(103,"Cake",BigDecimal.valueOf(3.85), Rating.TWO_STAR,LocalDate.now().plusDays(2));
-//        Product p4= pm.createProduct(104,"Banana",BigDecimal.valueOf(2), Rating.THREE_STAR);
-//       
-//        System.out.println(p1);
-//        System.out.println(p2);
-//        System.out.println(p3);
-//        System.out.println(p4);
-//        p3 = p3.applyRating(Rating.FIVE_STAR);
-//        System.out.println(p3);
-//        p4 = pm.reviewProduct(p4, "This is not normal", Rating.NOT_RATED);
-//        System.out.println(p4);
+        
+        p1 = pm.reviewProduct(p1, "I love this tea", Rating.FIVE_STAR);
+        p1 = pm.reviewProduct(p1, "This tea is superb", Rating.FOUR_STAR);
+        p1 = pm.reviewProduct(p1, "Taste like shit", Rating.ONE_STAR);
+        p1 = pm.reviewProduct(p1, "Fantastic tea", Rating.FIVE_STAR);
+        p1 = pm.reviewProduct(p1, "Just tea", Rating.THREE_STAR);
+        p1 = pm.reviewProduct(p1, "Sweet tea", Rating.FIVE_STAR);
+        pm.printProductReport();
     }
 
 }
