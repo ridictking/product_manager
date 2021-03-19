@@ -37,7 +37,7 @@ public class Shop {
         Locale locale = new Locale("en_NG");
         ProductManager pm = new ProductManager(Locale.UK);
         Product p1 = pm.createProduct(101,"Tea",BigDecimal.valueOf(1.97), Rating.NOT_RATED,LocalDate.now().plusDays(2));
-        pm.printProductReport();
+        pm.printProductReport(p1);
         
         p1 = pm.reviewProduct(p1, "I love this tea", Rating.FIVE_STAR);
         p1 = pm.reviewProduct(p1, "This tea is superb", Rating.FOUR_STAR);
@@ -45,7 +45,7 @@ public class Shop {
         p1 = pm.reviewProduct(p1, "Fantastic tea", Rating.FIVE_STAR);
         p1 = pm.reviewProduct(p1, "Just tea", Rating.THREE_STAR);
         p1 = pm.reviewProduct(p1, "Sweet tea", Rating.FIVE_STAR);
-        pm.printProductReport();
+        pm.printProductReport(p1);
     }
 
 }
